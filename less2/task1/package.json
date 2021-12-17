@@ -17,6 +17,7 @@
     "@babel/plugin-transform-arrow-functions": "^7.16.5"
   },
   "dependencies": {
-    "@babel/plugin-proposal-json-strings": "^7.16.5"
+    "@babel/plugin-proposal-json-strings": "^7.16.5",
+    "@babel/plugin-transform-template-literals": "^7.16.5"
   }
 }
