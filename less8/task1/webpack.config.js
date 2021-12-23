@@ -1,42 +1,54 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-
-module.exports = {
-  entry: "./src/index.js",
-  output: {
-    filename: "bundle.js",
-  },
-  module: {
-    rules: [
-      {
-        test: /\.s?css$/i,
-        use: ['style-loader', "css-loader",'sass-loader'],
-      },
-      {
-        test: /\.(jpg|png|gif)$/i,
-        use: [
-          {
-            loader: "url-loader",
-            options: {
-              limit: 8192,
-              outputPath: 'images',
+module.exports = (env, argv) => {
+  const isProduction = argv.mode === 'production';
+  const config = {
+    entry: "./src/index.js",
+    output: {
+      filename: "bundle.js",
+    },
+    module: {
+      rules: [
+        {
+          test: /\.s?css$/i,
+          use: [
+            isProduction 
+              ? MiniCssExtractPlugin.loader
+              : "style-loader",
+            "css-loader",
+            "sass-loader",
+          ],
+        },
+        {
+          test: /\.(jpg|png|gif)$/i,
+          use: [
+            {
+              loader: "url-loader",
+              options: {
+                limit: 8192,
+                outputPath: "images",
+              },
             },
-          },
-        ],
-      },
+          ],
+        },
+      ],
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: "./src/index.html",
+      }),
     ],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/index.html'
-    }),
-    new MiniCssExtractPlugin({
+    devServer: {
+      port: 9000,
+      hot: true,
+    },
+  };
+
+  if (isProduction) {
+    config.plugins.push(new MiniCssExtractPlugin({
       filename: '[name].css',
-    }),
-  ],
-  devServer:{
-    port: 9000,
-    hot: true,
+    }))
   }
+  return config;
 };
