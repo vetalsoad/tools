@@ -9,7 +9,6 @@
     "build:styles": "sass ./src/styles/index.scss ./dist/styles.css",
     "transpile:scripts": "babel ./src --out-dir=./temp",
     "build:scripts": "webpack ./temp/scripts/index.js -p",
-    "clean": "rm -rf ./dist",
     "build": "npm-run-all clean transpile:scripts build:*"
   },
   "keywords": [],
