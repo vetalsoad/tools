@@ -49,6 +49,10 @@ module.exports = (env, argv) => {
       }),
       
     ],
+    devServer: {
+      port: 9000,
+      hot: true,
+    }
   };
   if (isProduction) {
     config.plugins.push(
