@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { getTasksList } from "./tasksGateway.js";
+import "./list.scss";
 
 const listElem = document.querySelector(`.list`);
 
